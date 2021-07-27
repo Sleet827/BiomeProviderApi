@@ -1,0 +1,4 @@
+@ParametersAreNonnullByDefault
+package net.legiblesleet827.biomeapi.data;
+
+import javax.annotation.ParametersAreNonnullByDefault;
