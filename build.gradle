@@ -100,13 +100,20 @@ jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            artifact jar
+        gpr(MavenPublication) {
+            from(components.java)
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+            name = "GithubPackages"
+            url = uri("https://maven.pkg.github.com/hackcoder1000/biomeproviderapi")
+            credentials {
+                username = property('gpr.username')
+                password = property('gpr.token')
+            }
         }
     }
 }
