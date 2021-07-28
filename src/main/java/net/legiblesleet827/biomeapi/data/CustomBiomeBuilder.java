@@ -56,7 +56,7 @@ public class CustomBiomeBuilder {
     public JsonObject serialise() {
         JsonObject json = new JsonObject();
 
-        json.addProperty("surface_builder", this.surfaceBuilder.toString().toLowerCase());
+        json.addProperty("surface_builder", this.surfaceBuilder.toString());
         json.addProperty("depth", this.depth);
         json.addProperty("scale", this.scale);
         json.addProperty("temperature", this.temperature);
