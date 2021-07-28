@@ -14,8 +14,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.0'
-group = 'net.legiblesleet827.biomeapi'
-archivesBaseName = 'biomeapi'
+group = 'net.legiblesleet827'
+archivesBaseName = "biomeapi"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
@@ -79,41 +79,49 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.17.1-37.0.12'
+    minecraft 'net.minecraftforge:forge:1.17.1-37.0.13'
 }
 
 jar {
     manifest {
         attributes([
                 "Specification-Title"     : "biomeapi",
-                "Specification-Vendor"    : "examplemodsareus",
-                "Specification-Version"   : "1",
+                "Specification-Vendor"    : "LegibleSleet827",
+                "Specification-Version"   : "1.0",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "examplemodsareus",
+                "Implementation-Vendor"   : "LegibleSleet827",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
 
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 jar.finalizedBy('reobfJar')
 
 publishing {
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
     repositories {
         maven {
-            name = "GithubPackages"
+            name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/hackcoder1000/biomeproviderapi")
             credentials {
                 username = property('gpr.username')
                 password = property('gpr.token')
             }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+            artifact sourcesJar
         }
     }
 }
